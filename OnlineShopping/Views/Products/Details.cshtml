@@ -1,0 +1,30 @@
+﻿@model OnlineShopping.Models.Product
+
+@{
+    ViewData["Title"] = "Детали за продукт";
+}
+
+<br />
+<br />
+<div class="card-columns">
+    <div class="card">
+        <div class="card-img" style="background-image:url('@Model.PictureUrl')"></div>
+    </div>
+    <h2 style="text-transform: uppercase; margin-left: 40px">@Model.Name</h2>
+    <p style="display:inline; margin-left: 40px">Пол: </p><p style="display: inline">@Model.Sex</p><br />
+    <p style="display:inline; margin-left: 40px">Боја: </p><p style="display: inline">@Model.Color</p>
+    <br /><hr style="margin-left:40px" />
+    @if (Model.CenaPopust != 0)
+    {
+        <h5 style="text-decoration:line-through;margin-left: 40px">@Model.Price ден.</h5>
+        <h5 style="color:red; margin-left: 40px">@Model.CenaPopust ден.</h5>
+    }
+    else
+    {
+        <h5 style="margin-left: 40px">@Model.Price ден.</h5><br />
+    }
+    @if(User.Identity.IsAuthenticated && User.IsInRole("Client")) 
+    { 
+        <a asp-controller="ShoppingCarts" asp-action="Create" asp-route-pId="@Model.Id" class="btn btn-primary" style="margin-left: 40px">ВО КОШНИЧКА</a>
+    }
+</div>

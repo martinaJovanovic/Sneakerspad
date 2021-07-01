@@ -1,0 +1,40 @@
+﻿@model IEnumerable<OnlineShopping.Models.Size>
+
+@{
+    ViewData["Title"] = "Величини";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Величини</h1>
+
+<p>
+    <a asp-action="Create">Додади нов број</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductSize)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductSize)
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Id">Избриши</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

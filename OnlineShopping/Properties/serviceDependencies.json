@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "OnlineShoppingContext"
+    },
+    "mssql3": {
+      "type": "mssql",
+      "connectionId": "OnlineShoppingWContext"
+    },
+    "mssql4": {
+      "type": "mssql",
+      "connectionId": "WOnlineShoppingContext"
+    }
+  }
+}

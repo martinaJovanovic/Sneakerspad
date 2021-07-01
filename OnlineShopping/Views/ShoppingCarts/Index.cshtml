@@ -1,0 +1,46 @@
+﻿@model IEnumerable<OnlineShopping.Models.ShoppingCart>
+
+@{
+    ViewData["Title"] = "Кошничка";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Кошничка</h1>
+<h4>@ViewData["Ime"]</h4>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Продукт
+            </th>
+            <th>
+                Големина
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size.ProductSize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                <form asp-action="Delete" asp-route-id="@item.Id" method="post">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Дали сте сигурни дека сакате да ја откажете оваа нарачка?');"> Избриши </button>
+                </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

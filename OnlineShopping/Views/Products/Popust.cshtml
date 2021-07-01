@@ -1,0 +1,39 @@
+﻿@model OnlineShopping.ViewModels.PopustVM
+
+@{
+    ViewData["Title"] = "Попуст";
+}
+
+<h1>Додај попуст</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Popust">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Product.Id" />
+            <input type="hidden" asp-for="Product.Name" />
+            <input type="hidden" asp-for="Product.Color" />
+            <input type="hidden" asp-for="Product.Description" />
+            <input type="hidden" asp-for="Product.PictureUrl" />
+            <input type="hidden" asp-for="Product.Sex" />
+            <input type="hidden" asp-for="Product.Price" />
+            <div class="form-group">
+                <label asp-for="Popust" class="control-label"></label>
+                <input asp-for="Popust" class="form-control" />
+                <span asp-validation-for="Popust" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Зачувај" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад кон листата</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,66 @@
+﻿@model OnlineShopping.ViewModels.ProductsFilter
+
+@{
+    ViewData["Title"] = "Патики";
+}
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin")) { 
+    <p>
+        <a asp-action="Create">Додади продукт</a>
+    </p>
+    }
+
+<form asp-controller="Products" asp-action="Index" method="get">
+    <h3>Филтер</h3>
+    <label style="font-weight:bold">Боја:</label>
+    <select asp-for="Color" asp-items="Model.Colors">
+        <option value="">Сите</option>
+    </select>&nbsp;&nbsp;
+    <label style="font-weight:bold">Бренд:</label>&nbsp;&nbsp;
+    <select asp-for="Brand" asp-items="Model.Brands">
+        <option value="">Сите</option>
+    </select>&nbsp;&nbsp;
+    <select asp-for="CenaOd" asp-items="Model.CeniOd">
+        <option value="">Цена од (ден.)</option>
+    </select>&nbsp;&nbsp;
+    <select asp-for="CenaDo" asp-items="Model.CeniDo">
+        <option value="">Цена до (ден.)</option>
+    </select>&nbsp;&nbsp;
+    <input type="hidden" asp-for="Sex" />
+    <input type="submit" value="Филтер" />
+</form>
+<br />
+
+<div class="row">
+    <div class="card-columns">
+        @foreach (var product in Model.Products)
+        {
+            <div class="card">
+                <a asp-action="Details" asp-route-id="@product.Id">
+                    <div class="card-img" style="background-image:url('@product.PictureUrl')"></div>
+                </a>
+                <div class="card-body">
+                    <h5>@product.Name</h5>
+                    @if (product.CenaPopust != 0)
+                    {
+                        <h6 style="text-decoration:line-through">@product.Price ден.</h6>
+                        <h6 style="color:red">@product.CenaPopust ден.</h6>
+                    }
+                    else
+                    {
+                        <h6>@product.Price ден.</h6>
+                    }
+                    @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Manager")))
+                    {<a asp-action="Edit" asp-route-id="@product.Id">Промени | </a>}
+                    @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Manager")))
+                    {<a asp-action="Delete" asp-route-id="@product.Id">Избриши | </a>}
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Manager"))
+                    {<a asp-action="Popust" asp-route-id="@product.Id">Попуст | </a>}
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Manager"))
+                    {<a asp-controller="ProductSizes" asp-action="Create" asp-route-id="@product.Id">Величини</a>}
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

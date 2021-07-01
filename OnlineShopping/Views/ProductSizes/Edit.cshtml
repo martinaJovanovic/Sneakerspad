@@ -1,0 +1,47 @@
+﻿@model OnlineShopping.ViewModels.ProductSizeEditVM
+
+@{
+    ViewData["Title"] = "Измени величини";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Измени величини</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Product.Id" />
+            <input type="hidden" asp-for="Product.Name" />
+            <input type="hidden" asp-for="Product.PictureUrl" />
+            <input type="hidden" asp-for="Product.Price" />
+            <input type="hidden" asp-for="Product.Sex" />
+            <input type="hidden" asp-for="Product.CenaPopust" />
+            <input type="hidden" asp-for="Product.Color" />
+            <input type="hidden" asp-for="Product.Description" />
+            <div class="form-group">
+                <label class="control-label">Достапни величини:</label>
+                <select asp-for="SelectedSizes" class="form-control js-example-basic-multiple"
+                        asp-items="Model.SizeList"> </select>
+                <span asp-validation-for="SelectedSizes" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Зачувај" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#SelectedSizes").select2();
+        });
+    </script>
+}

@@ -1,0 +1,44 @@
+﻿@model OnlineShopping.ViewModels.ProductsSearch
+
+@{
+    ViewData["Title"] = "Пребарување";
+}
+
+<form asp-controller="Products" asp-action="Search" method="get">
+    <h3>Пребарување</h3>
+    <hr />
+    <input type="text" asp-for="Search" placeholder="Пребарајте продукти..." style="padding: 4px 15px; border-radius: 4px; border: 1px solid #ccc;" />
+    &nbsp; &nbsp; &nbsp;
+    <input type="submit" value="Пребарај" />
+</form>
+<br />
+
+<div class="row">
+    <div class="card-columns">
+        @if (Model.Products != null) 
+        {
+            @foreach (var product in Model.Products)
+            {
+                <div class="card">
+                    <a asp-action="Details" asp-route-id="@product.Id">
+                        <div class="card-img" style="background-image:url('@product.PictureUrl')"></div>
+                    </a>
+                    <div class="card-body">
+                        <h5>@product.Name</h5>
+                        @if (product.CenaPopust != 0)
+                        {
+                            <h6 style="text-decoration:line-through">@product.Price ден.</h6>
+                            <h6 style="color:red">@product.CenaPopust ден.</h6>
+                        }
+                        else
+                        {
+                            <h6>@product.Price ден.</h6>
+                        }
+                        <a asp-action="Edit" asp-route-id="@product.Id">Промени</a> |
+                        <a asp-action="Delete" asp-route-id="@product.Id">Избриши</a>
+                    </div>
+                </div>
+             } 
+        }
+    </div>
+</div>
